@@ -1,0 +1,144 @@
+/* Font Vazir */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Vazirmatn:wght@100..900&display=swap');
+
+body{
+    font-family: "Vazirmatn", serif;
+    
+}
+
+/* Add these CSS classes for animation */  
+@keyframes slideIn {  
+    from {  
+      opacity: 0;  
+      transform: translateX(-20px);  
+    }  
+    to {  
+      opacity: 1;  
+      transform: translateX(0);  
+    }  
+  }  
+  
+  @keyframes slideOut {  
+    from {  
+      opacity: 1;  
+      transform: translateX(0);  
+    }  
+    to {  
+      opacity: 0;  
+      transform: translateX(-20px);  
+    }  
+  }  
+  
+  #filterSetting {  
+    transition: all 0.3s ease-in-out;  
+    will-change: transform, opacity;  
+  }  
+  
+  #filterSetting.animate-slide-in {  
+    animation: slideIn 0.3s ease-out forwards;  
+  }  
+  
+  #filterSetting.animate-slide-out {  
+    animation: slideOut 0.3s ease-in forwards;  
+  }  
+  
+  .tutorial-card {  
+    scroll-snap-align: center;  
+  }  
+  
+  #tutorialCardContainer {  
+    scroll-snap-type: x mandatory;  
+    -webkit-overflow-scrolling: touch;  
+  }  
+
+  .productSuccessMessage {
+    opacity: 0;
+  }
+
+  .productSuccess {
+    animation: product-success 1s forwards;
+    animation-timing-function: ease-out;
+    animation-delay: 0s;
+  }
+
+  #menuModal{
+    opacity: 0;
+  }
+
+  .activeModal{
+    animation: openMenu .5s forwards;
+    animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+    animation-delay: 0s;
+  }
+
+  .closeModal{
+    animation: closeModalAni .5s forwards;
+    animation-timing-function: ease-out;
+    animation-delay: 0s;
+  }
+
+
+  @keyframes product-success {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes openMenu{
+  0% {
+      opacity: 0;
+      transform: translateX(100%);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translateX(0%);
+  }
+}
+
+@keyframes closeModalAni{
+  0% {
+      opacity: 1;
+      transform: translateX(0%);
+  }
+
+
+  100% {
+      opacity: 0;
+      transform: translateX(100%);
+  }
+}
+
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.snap-slider {
+  scroll-snap-type: x mandatory;
+}
+.snap-card {
+  scroll-snap-align: start;
+}
+
+.animate-scroll {
+  display: flex;
+  animation: scroll 6s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}

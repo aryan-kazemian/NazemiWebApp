@@ -1,0 +1,287 @@
+{% extends 'Base/Base.html' %}
+{% load thumbnail %}
+{% load currency_filters %}
+
+{% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ site_setting.icon.url }}" type="image/x-icon">
+    <meta name="description" content="فروش انواع لوازم یدکی ماشین های چینی با بهترین قیمت و کیفیت">
+    <meta name="keywords" content="خرید لوازم ماشین چینی, تیگو 8, اریزو, خرید لوازم  ماشین ">
+    <meta name="author" content="لوازم یدکی ناظمی">
+{% endblock %}
+{% block title %}
+	لوازم یدکی ناظمی
+{% endblock %}
+
+{% block content %}
+<main>
+      <!-- Hero Section -->
+
+        <section id="heroSection" class="relative w-full h-[95vh] overflow-hidden bg-lightGray">
+        <!-- Slide Content -->
+        <div class="slides transition-transform duration-500 ease-in-out">
+          <!-- Dynamic slides will be injected here -->
+        <div class="slide w-full h-full absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity: 0;"><img class="w-full h-full object-cover" src="../assets/images/cheryHero2.jpg" alt="بهترین لوازم یدکی برای ماشین‌های چینی"></div><div class="slide w-full h-full absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity: 0;"><img class="w-full h-full object-cover" src="../assets/images/cheryHero.jpg" alt="آموزش تعویض لوازم یدکی خودروهای چینی"></div><div class="slide w-full h-full absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity: 1;"><img class="w-full h-full object-cover" src="../assets/images/carHero.jpg" alt="پشتیبانی و مشاوره خرید لوازم یدکی"></div></div>
+
+        <!-- Overlay for Text Visibility -->
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 flex items-center justify-center h-full text-center px-4 sm:px-8 md:px-12">
+          <div class="max-w-4xl heroContent">
+            <h1 id="heroSectionTitle" class="text-white text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4">پشتیبانی و مشاوره خرید لوازم یدکی</h1>
+            <p id="heroSectionDes" class="text-white text-sm sm:text-lg md:text-xl mb-6">تیم پشتیبانی ما آماده است تا شما را در انتخاب بهترین قطعات یدکی
+                      متناسب با خودروتان راهنمایی کند. با ما تماس بگیرید و بهترین تجربه خرید را داشته باشید.</p>
+            <a href="#" class="inline-block hero-button bg-bgRed hover:bg-darkerBgRed text-white font-medium py-3 px-6 rounded-lg shadow-md transition-all">تماس با ما</a>
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button id="prevSlide" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl p-3 bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition cursor-pointer z-50">
+          <i class="fas fa-angle-left" aria-hidden="true"></i>
+        </button>
+        <button id="nextSlide" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl p-3 bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition z-50">
+          <i class="fas fa-angle-right" aria-hidden="true"></i>
+        </button>
+
+        <!-- Indicator Dots -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-50 indicator-dots"><div class="w-3 h-3 rounded-full cursor-pointer z-50 bg-white opacity-50"></div><div class="w-3 h-3 rounded-full cursor-pointer z-50 bg-white opacity-50"></div><div class="w-3 h-3 rounded-full cursor-pointer z-50 bg-white opacity-100"></div></div>
+
+      </section>
+
+        <section class="bg-bgRed py-1 shadow-md overflow-hidden text-center">
+        <div class="logos-container max-h-[200px] flex items-center gap-20 animate-scroll overflow-hidden justify-center">
+          <div class="flex flex-col items-center justify-center w-[14%]">
+            <img src="/Static/assets/images/carLogos/jacLogo.png" alt="Company 4" loading="lazy" class="">
+            <span class="font-bold text-bgRed">JAC</span>
+          </div>
+          <div class="w-[16%]">
+            <img src="/Static/assets/images/carLogos/chery.png" alt="Company 2" loading="lazy" class="">
+          </div>
+
+          <div class="w-[16%]">
+            <img src="/Static/assets/images/carLogos/fownix-removebg-preview.png" alt="Company 3" loading="lazy" class="">
+          </div>
+
+          <div class="w-[16%]">
+            <img src="/Static/assets/images/carLogos/modiranLogo.png" alt="Company 6" loading="lazy" class="">
+          </div>
+
+          <div class="w-[14%]">
+            <img src="/Static/assets/images/carLogos/kmc.png" alt="Company 3" loading="lazy" class="">
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Category Base On car -->
+        <section id="carCategory">
+        <div class="container mx-auto py-12 flex flex-col items-center gap-12">
+          <h2 class="text-center text-4xl font-bold mb-8">
+            دسته بندی خودروها
+          </h2>
+
+          <div class="flex flex-wrap gap-6 justify-center w-full px-4">
+            {% if cars %}
+                    {% for car in cars %}
+        	        <div data-aos="fade-right" class="flex flex-col items-center p-4 rounded-lg group cursor-pointer relative aos-init aos-animate">
+          <a href="{% url 'ProductListPage' %}?car={{ car.slug }}">
+          <div class="w-52 h-52 rounded-full overflow-hidden mb-4 group-hover:scale-105 transition duration-300 border">
+            {% thumbnail  car.image  "950x630" crop="center" as im %}
+                  <img src="{{ im.url }}" alt="{{ car.name }}" class="w-full h-full object-cover">
+            {% endthumbnail %}
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition duration-300"></div>
+          </div>
+          </a>
+          <h3 class="text-center text-lg font-bold"><a href="{% url 'ProductListPage' %}?car={{ car.slug }}">{{ car.name }}</a></h3>
+        </div>
+        {% endfor %}
+            {% endif %}
+          </div>
+
+        <a href="{% url 'CarListPage' %}"><button type="button" class="bg-bgRed text-lightGray px-6 py-2 rounded-xl text-center hover:bg-darkerBgRed hover:px-8 hover:text-white hover:font-bold duration-300">
+            نمایش همه
+          </button></a>
+        </div>
+      </section>
+
+
+        <!-- Section Title -->
+
+        <section id="latestProducts" class="bg-steelGray py-8 px-4 md:px-8 flex flex-col gap-12">
+
+        <h2 class="text-center text-lightGray font-bold text-2xl md:text-4xl">
+          پرطرفدار ترین محصولات
+        </h2>
+
+        <!-- Product Cards Container -->
+        <div id="latestProductCardContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 container mx-auto">
+            {% for product in products %}
+            <div data-aos="fade-left" class="productCard bg-lightGray rounded-xl flex flex-col gap-3 shadow-xl overflow-hidden aos-init aos-animate">
+                <a href="{% url 'ProductDetailPage' product.slug %}">
+                <div class="w-full h-40 overflow-hidden">
+            {% thumbnail  product.image  "300x160" crop="center" as im %}
+               <img src="{{ im.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+            {% endthumbnail %}
+            </div>
+                <div class="p-4 flex flex-col gap-2">
+              <h3 class="font-semibold text-lg md:text-xl text-center cursor-pointer hover:text-limeGreen transition-colors">
+                {{ product.name }}
+              </h3>
+              <span class="text-gray-700 text-sm text-center">
+                کد کالا : {{ product.cod }}
+              </span>
+              <div class="flex flex-row justify-between text-sm md:text-base">
+                <span>{{ product.name }}</span>
+                <span class="text-bgRed font-bold">{{ product.price_integer|three_digits_currency }}</span>
+              </div>
+            </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+      </section>
+
+        <section id="tutorialSection" class="py-12 px-4 md:px-16">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">
+            مطالب آموزشی
+            <span class="block w-24 h-1 bg-[#C8102E] mx-auto mt-4"></span>
+          </h2>
+
+          <div class="relative group">
+            <div class="relative overflow-hidden rounded-2xl shadow-xl bg-white">
+              <!-- Progress Bar -->
+              <div id="progressBar" class="h-1 bg-gray-200">
+                <div id="progressIndicator" class="h-full bg-[#C8102E] transition-all ease-linear duration-300" style="width: 0%"></div>
+              </div>
+
+              <!-- Slider Container -->
+              <div id="tutorialCardContainer" class="flex gap-6 px-4 py-8 overflow-hidden snap-x snap-mandatory touch-pan-x">
+                    {% for tutorial in tutorials %}
+              <article class="snap-center flex-shrink-0 w-72 transform transition-transform duration-300 hover:scale-105">
+                  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <a href="{% url 'TutorialDetailPage' tutorial.slug %}" class="block">
+                      <div class="h-48 overflow-hidden">
+            {% thumbnail  tutorial.image  "300x200" crop="center" as im %}
+                 <img src="{{ im.url }}" alt="{{ tutorial.title }}" class="w-full h-full object-cover">
+            {% endthumbnail %}
+                      </div>
+                      <div class="p-4">
+                        <h3 class="text-gray-900 font-medium text-lg">
+                          {{ tutorial.title }}
+                        </h3>
+                        <p class="text-gray-500 text-sm mt-2">
+                          <i class="fas fa-clock ml-2" aria-hidden="true"></i> {{ tutorial.minutes_to_read }} دقیقه مطالعه
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </article>
+
+                    {% endfor %}
+
+              </div>
+
+              <!-- Navigation Buttons -->
+              <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-gray-900 hover:bg-gray-200 transition-all">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+              </button>
+              <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-gray-900 hover:bg-gray-200 transition-all">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <!-- Dots Navigation -->
+            <div id="sliderDots" class="flex justify-center gap-2 mt-6"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- section for contact Us -->
+        <section data-aos="fade-up" class="bg-steelGray py-12 px-4 text-lightGray flex flex-col items-center aos-init aos-animate">
+        <!-- Section Title -->
+        <h3 class="text-center font-bold text-3xl md:text-4xl mb-8">
+          تماس با ما
+        </h3>
+
+        <!-- Contact Us Box -->
+        <div class="bg-gray-300 px-8 py-8 rounded-2xl shadow-lg flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
+          <!-- Logo and Name -->
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            {% thumbnail  site_setting.logo  "64x27" crop="center" as im %}
+            <img class="w-20 h-20 object-contain" src="{{ im.url }}" alt="{{ site_setting.shop_name }}">
+            {% endthumbnail %}
+            <h4 class="font-bold text-gray-800 text-xl md:text-2xl text-center">
+              {{ site_setting.shop_name }}
+            </h4>
+          </div>
+
+          <!-- Phone -->
+          <address class="not-italic text-lg text-center text-gray-700">
+            شماره تماس:
+            <a href="tel:{{ site_setting.phone_number }}" class="hover:text-black duration-150 underline">
+              {{ site_setting.phone_number }}
+            </a>
+          </address>
+
+          <!-- Address -->
+          <p class="text-center text-lg text-gray-700">
+            آدرس:
+            <span>{{ site_setting.address }}</span>
+          </p>
+
+          <!-- Call Button -->
+          <button type="button" class="rounded-lg bg-red-500 hover:bg-red-600 px-6 py-3 text-lg font-bold text-white shadow-lg hover:shadow-xl transition-all">
+            <a href="tel:{{ site_setting.phone_number }}">تماس</a>
+          </button>
+        </div>
+
+        <!-- Why Us Section -->
+        <div class="flex flex-col md:flex-row gap-6 mt-12 items-center justify-center text-center">
+          <!-- Fast Shipping -->
+          <div class="service-box flex flex-col items-center gap-3">
+            <div class="bg-gray-300 text-steelGray w-20 h-20 p-5 rounded-full flex items-center justify-center shadow-lg">
+              <i class="fas fa-box text-3xl" aria-hidden="true"></i>
+            </div>
+            <span class="text-gray-200 text-sm sm:text-base">
+              ارسال در سریع‌ترین زمان
+            </span>
+          </div>
+
+          <!-- Product Variety -->
+          <div class="service-box flex flex-col items-center gap-3">
+            <div class="bg-gray-300 text-steelGray w-20 h-20 p-5 rounded-full flex items-center justify-center shadow-lg">
+              <i class="fas fa-globe text-3xl" aria-hidden="true"></i>
+            </div>
+            <span class="text-gray-200 text-sm sm:text-base">
+              تنوع بالا محصولات
+            </span>
+          </div>
+
+          <!-- Free Support -->
+          <div class="service-box flex flex-col items-center gap-3">
+            <div class="bg-gray-300 text-steelGray w-20 h-20 p-5 rounded-full flex items-center justify-center shadow-lg">
+              <i class="fas fa-headset text-3xl" aria-hidden="true"></i>
+            </div>
+            <span class="text-gray-200 text-sm sm:text-base">
+              مشاوره و پشتیبانی رایگان
+            </span>
+          </div>
+
+          <!-- Product Guarantee -->
+          <div class="service-box flex flex-col items-center gap-3">
+            <div class="bg-gray-300 text-steelGray w-20 h-20 p-5 rounded-full flex items-center justify-center shadow-lg">
+              <i class="fa-solid fa-check-to-slot text-3xl" aria-hidden="true"></i>
+            </div>
+            <span class="text-gray-200 text-sm sm:text-base">
+              ضمانت کیفیت و اصالت کالا
+            </span>
+          </div>
+        </div>
+      </section>
+    </main>
+{% endblock %}

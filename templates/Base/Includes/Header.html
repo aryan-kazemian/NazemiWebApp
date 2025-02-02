@@ -1,0 +1,97 @@
+    {% load thumbnail %}
+<header>
+        <nav
+          class="bg-bgRed w-full p-5 shadow-xl flex items-center justify-between"
+        >
+          <!-- Left Section (Menu Icon for Small Screens) -->
+          <div id="openMenu" class="flex items-center gap-2 lg:hidden">
+            <i class="fas fa-bars cursor-pointer text-white text-lg"></i>
+            <a
+              href="#"
+              class="relative cursor-pointer text-white text-lg ml-2 hover-underline"
+              >منو</a
+            >
+          </div>
+
+          <!-- Center Section (Logo and Company Name) -->
+          <div class="flex items-center justify-center gap-2 lg:gap-4">
+            <h2 class="font-bold text-white text-lg lg:text-xl text-center">
+                <a href="{% url 'IndexPage' %}">{{ site_setting.shop_name }}</a>
+            </h2>
+          </div>
+
+          <!-- Nav Items (Hidden on Small Screens) -->
+          <ul class="hidden lg:flex items-center gap-6 text-lightGray text-sm">
+            <li>
+              <a
+                href="{% url "IndexPage" %}"
+                class="relative cursor-pointer hover:text-white text-lg hover-underline"
+                >خانه</a
+              >
+            </li>
+            <li>
+              <a
+                href="{% url "admin_panel" %}"
+                class="relative cursor-pointer hover:text-white text-lg hover-underline"
+                >admin</a
+              >
+            </li>
+            <li>
+              <a
+                href="{% url 'ProductListPage' %}"
+                class="relative cursor-pointer hover:text-white text-lg hover-underline"
+                >محصولات</a
+              >
+            </li>
+            <li>
+              <a
+                href="{% url 'CarListPage' %}"
+                class="relative cursor-pointer hover:text-white text-lg hover-underline"
+                >خودروها</a
+              >
+            </li>
+            <li>
+              <a
+                href="{% url "TutorialListPage" %}"
+                class="relative cursor-pointer hover:text-white text-lg hover-underline"
+                >آموزش</a
+              >
+            </li>
+            <li>
+              <a
+                href="{% url "ContactUsPage" %}"
+                class="relative cursor-pointer hover:text-white text-lg hover-underline"
+                >ارتباط با ما</a
+              >
+            </li>
+          </ul>
+          <!-- Search Box for Larger Screens -->
+          <div class="relative hidden lg:block w-96">
+    <form action="{% url 'ProductListPage' %}" method="GET">
+        <input
+            class="w-full h-10 rounded-xl px-4 py-2 pr-12 outline-none bg-[#F6F6F6] text-sm text-gray-700 placeholder-gray-500 focus:ring focus:ring-lightGray duration-300"
+            type="search"
+            name="q"
+            value="{{ request.GET.q }}"
+            placeholder="محصول، برند، دسته نظر مورد خود را وارد کنید..."
+        />
+        <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-black">
+            <i class="fa-solid fa-magnifying-glass w-5 h-5"></i>
+        </button>
+    </form>
+</div>
+
+          <!-- Right Section (Search and User Icon) -->
+          <div class="flex items-center gap-2">
+            <!-- Search Icon for Medium Screens -->
+            <i
+              class="fa-solid fa-magnifying-glass !block lg:!hidden text-lightGray text-lg hover:text-white cursor-pointer z-50"
+            ></i>
+
+            <!-- User Icon -->
+            <!-- <i
+              class="fa-solid fa-user text-lightGray text-lg cursor-pointer hover:text-white"
+            ></i> -->
+          </div>
+        </nav>
+    </header>

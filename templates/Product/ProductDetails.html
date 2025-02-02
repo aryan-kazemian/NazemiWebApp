@@ -1,0 +1,85 @@
+{% extends 'Base/Base.html' %}
+{% load thumbnail %}
+{% load currency_filters %}
+{% block meta %}
+	<meta name="keywords" content="[{{ product.name }}], [{{ product.category }}],لوازم یدکی">
+    <meta name="author" content="لوازم یدکی ناظمی">
+    <meta property="og:title" content="{{ product.name }}">
+    <meta property="og:description" content="{{ product.description }}">
+    <meta property="og:image" content="{{ product.image.url }}">
+    <meta property="og:url" content="{% url 'ProductDetailPage' product.slug %}">
+{% endblock %}
+
+{% block title %}
+	{{ product.name }}
+{% endblock %}
+
+{% block content %}
+	<main>
+      <div class="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-2xl mt-10 flex flex-col space-y-6 border border-gray-200">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <!-- Product Image -->
+          <div>
+              {% thumbnail  product.image  "400x240" crop="center" as im %}
+                              <img src="{{ im.url }}" alt="{{ product.name }}" class="w-full h-60 object-cover rounded-lg shadow-md">
+              {% endthumbnail %}
+          </div>
+          <!-- Product Info -->
+          <div class="space-y-6">
+            <h1 class="text-3xl font-bold text-gray-800">{{ product.name }}</h1>
+            <p class="bg-red-600 text-white text-xl font-semibold inline-block px-4 py-2 rounded-lg shadow-md">
+              {{ product.price_integer|three_digits_currency }}
+            </p>
+            <p class="text-gray-700 text-lg">
+              مناسب برای:
+            {% for car in product.car.all %}
+                    <span class="font-semibold">{{ car }}</span>
+                    {% if not forloop.last %} / {% endif %}
+            {% endfor %}
+            </p>
+            <p class="text-gray-700 text-lg">
+              کد محصول: <span class="font-semibold">{{ product.cod }}</span>
+            </p>
+            <p class="text-gray-700 text-lg">
+              کشور سازنده: <span class="font-semibold">{{ product.country }}</span>
+            </p>
+            <!-- Call Button -->
+            <!-- Call Button -->
+            <div class="mt-6">
+              <a href="tel:{{ site_settings.phone_number }}" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg shadow-md text-lg font-semibold flex items-center justify-center gap-2">
+                <i class="fas fa-phone-alt" aria-hidden="true"></i> تماس بگیرید
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Secondary Container with Border -->
+      <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-6 border-b-2 border-gray-300">
+        <div class="flex border-b-2 border-gray-300">
+          <button onclick="toggleInfo('description', this)" class="flex-1 text-center py-3 border-b-2 border-transparent hover:border-black text-gray-900 text-lg flex items-center justify-center gap-2">
+            <i class="fas fa-info-circle" aria-hidden="true"></i> توضیحات
+          </button>
+          <button onclick="toggleInfo('additional-info', this)" class="flex-1 text-center py-3 border-b-2 text-gray-900 text-lg flex items-center justify-center gap-2 border-black">
+            <i class="fas fa-list" aria-hidden="true"></i> اطلاعات تکمیلی
+          </button>
+        </div>
+        <div id="description" class="mt-4 p-4 bg-gray-100 rounded-lg flex flex-col gap-3 hidden">
+          <p class="text-gray-700 text-lg">
+            {{ product.description }}
+          </p>
+
+        </div>
+        <div id="additional-info" class="mt-4 p-4 bg-gray-100 rounded-lg flex flex-col gap-4">
+          <div class="flex flex-row justify-around border-b pb-2 border-gray-300">
+            <span>برند خودرو</span>
+            <span>{{ product.brand }}</span>
+          </div>
+          <div class="flex flex-row justify-around">
+            <span> نوع قطعه </span>
+            <span> {{ product.category }} </span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+{% endblock %}

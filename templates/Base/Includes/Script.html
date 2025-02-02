@@ -1,0 +1,31 @@
+    <script
+      src="https://kit.fontawesome.com/febee2a18d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/Static/assets/scripts/main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SiteNavigationElement",
+        "name": ["خانه", "محصولات", "دسته بندی", "آموزش", "ارتباط با ما"],
+        "url": ["/home", "/products", "/categories", "/tutorials", "/contact"]
+      }
+    </script>
+    <script src="/Static/assets/scripts/homePage.js"></script>
+
+        <script>
+      function toggleInfo(section, btn) {
+        document.getElementById("description").classList.add("hidden");
+        document.getElementById("additional-info").classList.add("hidden");
+        document.getElementById(section).classList.toggle("hidden");
+
+        document.querySelectorAll(".border-b-2").forEach((button) => {
+          button.classList.remove("border-black");
+        });
+        btn.classList.add("border-black");
+      }
+    </script>

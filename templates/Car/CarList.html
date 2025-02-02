@@ -1,0 +1,39 @@
+{% extends 'Base/Base.html' %}
+{% load thumbnail %}
+
+
+{% block meta %}
+    <meta name="description" content="بررسی و معرفی انواع خودرو، مشخصات فنی، مقایسه مدل‌ها و راهنمای خرید ماشین. اطلاعات کامل درباره جدیدترین خودروهای بازار.">
+    <meta name="description" content="مرجع کامل دسته‌بندی خودروها، معرفی برندهای مختلف، مشخصات فنی و راهنمای خرید ماشین‌های اقتصادی، لوکس و اسپرت.">
+    <meta name="author" content="لوازم یدکی ناظمی">
+    <link rel="shortcut icon" href="{{ site_settings.icon.url }}" type="image/x-icon">
+{% endblock %}
+
+{% block title %}
+	خودروها
+{% endblock %}
+
+{% block content %}
+	<main>
+      <h1 class="font-bold text-4xl text-center mt-5">دسته بندی</h1>
+      <p class="text-center text-gray-600 text-lg mt-2">
+        دسته‌بندی خودروها را انتخاب کنید تا محصولات مرتبط نمایش داده شوند.
+      </p>
+      <!-- Car Items Container -->
+      <div class="w-full px-12 py-16 flex flex-wrap justify-center items-center">
+        {% for car in cars %}
+        	        <div data-aos="fade-right" class="flex flex-col items-center p-4 rounded-lg group cursor-pointer relative aos-init aos-animate">
+          <a href="{% url 'ProductListPage' %}?car={{ car.slug }}">
+          <div class="w-52 h-52 rounded-full overflow-hidden mb-4 group-hover:scale-105 transition duration-300 border">
+            {% thumbnail  car.image  "950x630" crop="center" as im %}
+                  <img src="{{ im.url }}" alt="{{ car.name }}" class="w-full h-full object-cover">
+            {% endthumbnail %}
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition duration-300"></div>
+          </div>
+          </a>
+          <h3 class="text-center text-lg font-bold"><a href="{% url 'ProductListPage' %}?car={{ car.slug }}">{{ car.name }}</a></h3>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+{% endblock %}

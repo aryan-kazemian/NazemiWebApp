@@ -1,0 +1,136 @@
+{% extends 'Base/Base.html' %}
+{% load thumbnail %}
+{% load currency_filters %}
+{% block title %}
+	 لیست محصولات
+{% endblock %}
+{% block content %}
+	<main>
+      <div class="w-[80%] mx-auto p-5 flex flex-col lg:flex-row gap-4">
+        <!-- Filter Right Section -->
+        <div id="filterSetting" class="border rounded-lg w-full lg:w-[20%] flex flex-col px-2 py-3 lg:block transition-all duration-300 ease-in-out transform">
+          <h4 class="text-lg font-bold border-b text-steelGray">
+            دسته ی محصولات
+          </h4>
+          <!-- Car Filter -->
+          <ul class="flex flex-col gap-3 mt-3">
+          <a href="{% url 'ProductListPage' %}">
+                <li class="flex flex-row justify-between text-gray-500 group cursor-pointer duration-150">
+                        <span class="group-hover:text-black duration-150">همه</span>
+                            <div class="px-1 text-center rounded-full border cursor-pointer group-hover:bg-bgRed group-hover:border-transparent duration-150">
+                        <span class="text-xs group-hover:text-white duration-150">{{ all_product_quantity }}</span>
+                    </div>
+                </li>
+            </a>
+            {% for category in categories %}
+                <a href="{% url 'ProductListPage' %}?category={{ category.slug }}">
+                <li class="flex flex-row justify-between text-gray-500 group cursor-pointer duration-150">
+                <span class="group-hover:text-black duration-150">{{ category.category }}</span>
+                <div class="px-1 text-center rounded-full border cursor-pointer group-hover:bg-bgRed group-hover:border-transparent duration-150">
+                <span class="text-xs group-hover:text-white duration-150">{{ category.productmodel_set.all|length }}</span>
+                </div>
+                </li>
+                </a>
+            {% endfor %}
+
+          </ul>
+        </div>
+        <!-- Product Section -->
+        <div class="w-full flex flex-col gap-2 px-4 py-3">
+          <!-- Top of the product container -->
+
+          <div class="flex flex-row justify-between border-b pb-1 items-center">
+            <div class="flex flex-row gap-5 items-center">
+              <i id="openFilterSetting" class="fas fa-sliders-h text-gray-700 hover:text-black block lg:!hidden cursor-pointer" aria-hidden="true"></i>
+                          {% if request.GET.q %}
+                              <span class="font-bold text-gray-700 hidden md:!block lg:hidden">نتایج جستجو برای "{{ request.GET.q }}"</span>
+                          {% else %}
+                              <span class="font-bold text-gray-700 hidden md:!block lg:hidden"> تمام محصولات </span>
+                          {% endif %}
+            </div>
+            <!-- Sort By Filter -->
+            <div class="flex flex-row gap-1 items-center">
+              <span class="text-gray-600 text-sm"> مرتب سازی براساس </span>
+                <div class="flex gap-3">
+                    <select class="rounded px-2 py-1 outline-none cursor-pointer text-gray-800" name="" id="sortSelect" onchange="location = this.value;">
+                        <option value="" hidden="">{% if sort_by %}{% if sort_by == "price_integer" %}ارزان ترین{% elif sort_by == "-price_integer" %}گران ترین{% elif sort_by == "id" %}قدیمی ترین{% elif sort_by == "-id" %}جدید ترین{% endif %}{% else %}جدید ترین{% endif %}</option>
+                        <option value="{% url 'ProductListPage' %}?sort_by=-id{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">جدید ترین</option>
+                        <option value="{% url 'ProductListPage' %}?sort_by=id{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">قدیمی ترین</option>
+                        <option value="{% url 'ProductListPage' %}?sort_by=price_integer{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">ارزان ترین</option>
+                        <option value="{% url 'ProductListPage' %}?sort_by=-price_integer{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">گران ترین</option>
+                    </select>
+                </div>
+
+            </div>
+          </div>
+
+          <div id="productCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 rounded-lg p-4">
+          {% if products %}
+            {% for product in products %}
+              <article data-aos="fade-left" class="productCard bg-lightGray rounded-xl flex flex-col gap-3 overflow-hidden border aos-init aos-animate">
+              <!-- Card Image -->
+              <div class="w-full h-40 overflow-hidden">
+              <a href="{% url 'ProductDetailPage' product.slug %}">
+              {% thumbnail  product.image  "200x160" crop="center" as im %}
+                  <img src="{{ im.url }}" alt="{{ product.name }}" class="w-full h-full object-cover" itemprop="image">
+              {% endthumbnail %}
+              </a>
+              </div>
+              <!-- Card Details -->
+              <div class="p-4 flex flex-col gap-2">
+                <!-- Product Name -->
+                <h3 class="font-semibold text-lg md:text-xl text-center cursor-pointer hover:text-limeGreen transition-colors" itemprop="name">
+                  <a href="{% url 'ProductDetailPage' product.slug %}">{{ product.name }}</a>
+                </h3>
+                <span class="text-gray-700 text-sm text-center" itemprop="sku">
+                  کد کالا : {{ product.cod }}
+                </span>
+                <!-- Product Price -->
+                <div class="flex flex-row justify-between text-sm md:text-base" itemprop="offers">
+                  <span itemprop="brand">{{ product.car.first }}</span>
+                  <span class="text-bgRed font-bold" itemprop="priceCurrency" content="IRR">
+                    <meta itemprop="price" content="{{ product.price_integer|three_digits_currency }}">
+                    {{ product.price_integer|three_digits_currency }}
+                  </span>
+                </div>
+              </div>
+            </article>
+            {% endfor %}
+          {% endif %}
+          </div>
+
+          <div dir="ltr" id="pagination" class="w-full border-t py-4 flex flex-row items-center justify-around gap-5 mt-5">
+    <div class="flex flex-row gap-2">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+               class="border rounded-lg px-3 py-1 text-gray-400 hover:text-white hover:bg-bgRed hover:border-transparent duration-150">
+                Back
+            </a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <div class="rounded bg-bgRed w-9 h-9 text-center px-3 py-2 text-white duration-300 cursor-pointer">{{ num }}</div>
+            {% else %}
+                <a href="?page={{ num }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+                   class="rounded border border-gray-600 w-9 h-9 text-center px-3 py-2 text-steelGray hover:border-transparent hover:bg-bgRed hover:text-lightGray duration-300 cursor-pointer">
+                    {{ num }}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+               class="border rounded-lg px-3 py-1 text-gray-400 hover:text-white hover:bg-bgRed hover:border-transparent duration-150">
+                Next
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+        </div>
+
+      </div>
+
+    </main>
+{% endblock %}

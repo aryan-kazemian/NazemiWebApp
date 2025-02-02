@@ -1,0 +1,25 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% include "Base/Includes/Css.html" %}
+    {% block meta %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+
+    {% include 'Base/Includes/MobileMenu.html' %}
+
+    {% render_partial 'HomeModule.views.header_render_partial_component' %}
+
+    {% block content %}{% endblock %}
+
+    {% render_partial 'HomeModule.views.footer_render_partial_component' %}
+
+    {% include 'Base/Includes/Script.html' %}
+
+  </body>
+</html>

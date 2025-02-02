@@ -1,0 +1,100 @@
+{% extends 'Base/Base.html' %}
+{% load thumbnail %}
+{% load jalali_tags %}
+
+{% block meta %}
+    <meta name="description" content="{{ tutorial.text }}">
+    <meta name="keywords" content="آموزش, راهنما, ماشین چینی, {{ tutorial.title }}">
+    <meta name="author" content="{{ tutorial.writer }}">
+    <meta property="og:title" content="{{ tutorial.title }}">
+    <meta property="og:description" content="{{ tutorial.text }}">
+    <meta property="og:image" content="{{ tutorial.image.url }}">
+    <meta property="og:url" content="{% url 'TutorialDetailPage' tutorial.slug %}">
+{% endblock %}
+
+{% block title %}
+	{{ tutorial.title }} - ناظمی یدک
+{% endblock %}
+{% block content %}
+<main class="bg-gray-50 py-12">
+
+      <div class="container mx-auto px-4">
+        <!-- Tutorial Title -->
+        <h1 class="text-4xl font-bold text-gray-900 mb-6">{{ tutorial.title }}</h1>
+
+        <!-- Tutorial Meta (Author, Date, etc.) -->
+        <div class="flex items-center space-x-4 text-gray-600 mb-8">
+          <span>نویسنده: {{ tutorial.writer }}</span>
+          <span>•</span>
+          <span>تاریخ انتشار: {{ tutorial.created_at|to_jalali:"%Y/%m/%d" }}</span>
+        </div>
+
+        <!-- Tutorial Image -->
+        <div class="mb-8">
+            {% thumbnail  tutorial.image  "960x600" crop="center" as im %}
+                 <img src="{{ im.url }}" alt="{{ tutorial.title }}" class="w-full h-full object-cover">
+            {% endthumbnail %}
+        </div>
+
+        <!-- Tutorial Content -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            {{ tutorial.title }}
+          </h2>
+          <p class="text-gray-700 leading-relaxed mb-6">
+            {{ tutorial.text }}
+          </p>
+
+          <!-- Steps -->
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4 gap-2">
+              <div class="flex-shrink-0 w-10 h-10 bg-crimsonRed text-white rounded-full flex items-center justify-center">
+                ۱
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900">مرحله اول</h3>
+                <p class="text-gray-700 mt-2">
+                  توضیحات مربوط به مرحله اول اینجا قرار می‌گیرد. این متن نمونه
+                  است و می‌توانید آن را با محتوای واقعی جایگزین کنید.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4 gap-2">
+              <div class="flex-shrink-0 w-10 h-10 bg-crimsonRed text-white rounded-full flex items-center justify-center">
+                ۲
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900">مرحله دوم</h3>
+                <p class="text-gray-700 mt-2">
+                  توضیحات مربوط به مرحله دوم اینجا قرار می‌گیرد. این متن نمونه
+                  است و می‌توانید آن را با محتوای واقعی جایگزین کنید.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4 gap-2">
+              <div class="flex-shrink-0 w-10 h-10 bg-crimsonRed text-white rounded-full flex items-center justify-center">
+                ۳
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900">مرحله سوم</h3>
+                <p class="text-gray-700 mt-2">
+                  توضیحات مربوط به مرحله سوم اینجا قرار می‌گیرد. این متن نمونه
+                  است و می‌توانید آن را با محتوای واقعی جایگزین کنید.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call-to-Action Buttons -->
+        <div class="mt-8 flex gap-4 callToActionBtns">
+          <a href="{% url 'ProductListPage' %}" class="bg-crimsonRed text-white px-6 py-3 rounded-lg hover:bg-darkerBgRed transition duration-300">
+            خرید قطعات
+          </a>
+          <a href="{% url 'TutorialListPage' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+            مشاهده آموزش‌های بیشتر
+          </a>
+        </div>
+      </div>
+    </main>
+{% endblock %}
