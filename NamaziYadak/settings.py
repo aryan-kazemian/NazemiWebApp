@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'sorl.thumbnail',
     'jalali_date',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

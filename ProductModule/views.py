@@ -2,6 +2,10 @@ from django.shortcuts import render
 from . import models
 from django.views.generic import ListView, DetailView
 from HomeModule.models import SiteSettingsModel
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from . import serializers
 
 # Create your views here.
 
@@ -57,3 +61,13 @@ class ProductDetailView(DetailView):
         context['site_settings'] = SiteSettingsModel.objects.filter(is_active=True).first()
 
         return context
+
+
+class SearchItemsView(APIView):
+    def get(self, request):
+        query = request.GET.get('q', '')
+        if query:
+            items = models.ProductModel.objects.filter(name__icontains=query)
+            serializer = serializers.ItemSerializer(items, many=True)
+            return Response(serializer.data)
+        return Response([], status=status.HTTP_200_OK)  # Return an empty list if no query
