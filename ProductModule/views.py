@@ -70,4 +70,4 @@ class SearchItemsView(APIView):
             items = models.ProductModel.objects.filter(name__icontains=query)
             serializer = serializers.ItemSerializer(items, many=True)
             return Response(serializer.data)
-        return Response([], status=status.HTTP_200_OK)  # Return an empty list if no query
+        return Response([], status=status.HTTP_200_OK)

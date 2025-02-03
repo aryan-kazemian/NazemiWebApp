@@ -30,68 +30,27 @@
         </div>
 
         <!-- Tutorial Image -->
-        <div class="mb-8">
-            {% thumbnail  tutorial.image  "960x600" crop="center" as im %}
-                 <img src="{{ im.url }}" alt="{{ tutorial.title }}" class="w-full h-full object-cover">
-            {% endthumbnail %}
+        <div class="mb-8 w-[70%] mx-auto">
+                 <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}" class="w-full h-full object-cover">
         </div>
 
         <!-- Tutorial Content -->
         <div class="bg-white p-8 rounded-lg shadow-lg">
           <h2 class="text-2xl font-semibold text-gray-900 mb-4">
-            {{ tutorial.title }}
+            توضیحات کامل
           </h2>
           <p class="text-gray-700 leading-relaxed mb-6">
             {{ tutorial.text }}
           </p>
 
-          <!-- Steps -->
-          <div class="space-y-6">
-            <div class="flex items-start space-x-4 gap-2">
-              <div class="flex-shrink-0 w-10 h-10 bg-crimsonRed text-white rounded-full flex items-center justify-center">
-                ۱
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900">مرحله اول</h3>
-                <p class="text-gray-700 mt-2">
-                  توضیحات مربوط به مرحله اول اینجا قرار می‌گیرد. این متن نمونه
-                  است و می‌توانید آن را با محتوای واقعی جایگزین کنید.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start space-x-4 gap-2">
-              <div class="flex-shrink-0 w-10 h-10 bg-crimsonRed text-white rounded-full flex items-center justify-center">
-                ۲
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900">مرحله دوم</h3>
-                <p class="text-gray-700 mt-2">
-                  توضیحات مربوط به مرحله دوم اینجا قرار می‌گیرد. این متن نمونه
-                  است و می‌توانید آن را با محتوای واقعی جایگزین کنید.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start space-x-4 gap-2">
-              <div class="flex-shrink-0 w-10 h-10 bg-crimsonRed text-white rounded-full flex items-center justify-center">
-                ۳
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900">مرحله سوم</h3>
-                <p class="text-gray-700 mt-2">
-                  توضیحات مربوط به مرحله سوم اینجا قرار می‌گیرد. این متن نمونه
-                  است و می‌توانید آن را با محتوای واقعی جایگزین کنید.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- Call-to-Action Buttons -->
         <div class="mt-8 flex gap-4 callToActionBtns">
-          <a href="{% url 'ProductListPage' %}" class="bg-crimsonRed text-white px-6 py-3 rounded-lg hover:bg-darkerBgRed transition duration-300">
+          <a href="../pages/products.html" class="bg-crimsonRed text-white px-6 py-3 rounded-lg hover:bg-darkerBgRed transition duration-300">
             خرید قطعات
           </a>
-          <a href="{% url 'TutorialListPage' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+          <a href="../pages/toturial.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
             مشاهده آموزش‌های بیشتر
           </a>
         </div>

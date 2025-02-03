@@ -86,22 +86,20 @@
 
           <!-- Newsletter Section -->
           <div>
-            <h3 class="text-xl font-bold mb-4">خبرنامه</h3>
+            <h3 class="text-xl font-bold mb-4">ما را دنبال کنید</h3>
             <p class="text-sm opacity-80 leading-6 mb-4">
-              برای دریافت جدیدترین اطلاعات و پیشنهادات ما، ایمیل خود را وارد
-              کنید.
+              برای به‌روز بودن با آخرین اخبار و محتواهای ما، ما را در شبکه‌های اجتماعی زیر دنبال کنید.
             </p>
-            <div class="flex items-center space-x-2 rtl:space-x-reverse">
-              <input
-                type="email"
-                placeholder="ایمیل شما"
-                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary duration-300"
-              />
-              <button
-                class="bg-bgRed text-white px-4 py-2 rounded-lg shadow-md hover:bg-darkerBgRed transition"
-              >
-                ارسال
-              </button>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+              <a href="{{ site_setting.instagram }}" target="_blank" class="text-lg">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="{{ site_setting.telegram }}" target="_blank" class="text-lg">
+                <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+              </a>
+              <a href="{{ site_setting.whatsapp }}" target="_blank" class="text-lg">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+              </a>
             </div>
           </div>
         </div>
