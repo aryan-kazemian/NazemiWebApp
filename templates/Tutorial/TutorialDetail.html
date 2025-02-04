@@ -11,6 +11,9 @@
     <meta property="og:image" content="{{ tutorial.image.url }}">
     <meta property="og:url" content="{% url 'TutorialDetailPage' tutorial.slug %}">
 {% endblock %}
+{% block url %}
+	{% url 'TutorialDetailPage' tutorial.slug %}
+{% endblock %}
 
 {% block title %}
 	{{ tutorial.title }} - ناظمی یدک
@@ -25,7 +28,7 @@
         <!-- Tutorial Meta (Author, Date, etc.) -->
         <div class="flex items-center space-x-4 text-gray-600 mb-8">
           <span>نویسنده: {{ tutorial.writer }}</span>
-          <span>•</span>
+          <span></span>
           <span>تاریخ انتشار: {{ tutorial.created_at|to_jalali:"%Y/%m/%d" }}</span>
         </div>
 
@@ -47,10 +50,10 @@
 
         <!-- Call-to-Action Buttons -->
         <div class="mt-8 flex gap-4 callToActionBtns">
-          <a href="../pages/products.html" class="bg-crimsonRed text-white px-6 py-3 rounded-lg hover:bg-darkerBgRed transition duration-300">
+          <a href="{% url 'ProductListPage' %}" class="bg-crimsonRed text-white px-6 py-3 rounded-lg hover:bg-darkerBgRed transition duration-300">
             خرید قطعات
           </a>
-          <a href="../pages/toturial.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+          <a href="{% url 'TutorialListPage' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
             مشاهده آموزش‌های بیشتر
           </a>
         </div>

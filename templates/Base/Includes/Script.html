@@ -28,3 +28,36 @@
         btn.classList.add("border-black");
       }
     </script>
+    <script>
+  let slides = document.querySelectorAll(".slide");
+  let dots = document.querySelectorAll(".dot");
+  let currentIndex = 0;
+
+  function updateSlider(index) {
+    slides.forEach((slide, i) => {
+      slide.style.opacity = i === index ? "1" : "0";
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("bg-red-500", i === index);
+    });
+  }
+
+  document.getElementById("prevSlide").addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlider(currentIndex);
+  });
+
+  document.getElementById("nextSlide").addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlider(currentIndex);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      currentIndex = i;
+      updateSlider(currentIndex);
+    });
+  });
+
+  updateSlider(currentIndex);
+</script>

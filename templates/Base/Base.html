@@ -5,15 +5,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="{% block url %}{% endblock %}" />
     {% include "Base/Includes/Css.html" %}
     {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
 
-    {% include 'Base/Includes/MobileMenu.html' %}
-
     {% render_partial 'HomeModule.views.header_render_partial_component' %}
+
+    {% include 'Base/Includes/MobileMenu.html' %}
+    {% include 'Base/Includes/SearchModal.html' %}
 
     {% block content %}{% endblock %}
 

@@ -9,6 +9,9 @@
     <meta property="og:image" content="{{ product.image.url }}">
     <meta property="og:url" content="{% url 'ProductDetailPage' product.slug %}">
 {% endblock %}
+{% block url %}
+	{% url 'ProductDetailPage' product.slug %}
+{% endblock %}
 
 {% block title %}
 	{{ product.name }}

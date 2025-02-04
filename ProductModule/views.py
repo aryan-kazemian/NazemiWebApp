@@ -30,21 +30,28 @@ class ProductListView(ListView):
         if car_slug:
             queryset = queryset.filter(car__slug=car_slug)
 
-        search_query = self.request.GET.get('q')
-        if search_query:
-            queryset = queryset.filter(name__icontains=search_query)
+        search_query_1 = self.request.GET.get('q1')
+        search_query_2 = self.request.GET.get('q2')
+
+        # Ensure that only one search query is used at a time
+        if search_query_1:
+            queryset = queryset.filter(name__icontains=search_query_1)
+        elif search_query_2:
+            queryset = queryset.filter(name__icontains=search_query_2)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         context['categories'] = models.ProductCategoryModel.objects.filter(is_active=True).all()
         context['all_product_quantity'] = models.ProductModel.objects.filter(is_active=True).count()
+
         sort_by = self.request.GET.get('sort_by')
         if sort_by in ['price_integer', '-price_integer', 'id', '-id']:
             context['sort_by'] = sort_by
+
         return context
+
 
 
 class ProductDetailView(DetailView):

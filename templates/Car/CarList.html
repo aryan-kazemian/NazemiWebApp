@@ -8,6 +8,9 @@
     <meta name="author" content="لوازم یدکی ناظمی">
     <link rel="shortcut icon" href="{{ site_settings.icon.url }}" type="image/x-icon">
 {% endblock %}
+{% block url %}
+	{% url 'CarListPage' %}
+{% endblock %}
 
 {% block title %}
 	خودروها

@@ -9,7 +9,7 @@ class TutorialListView(ListView):
     model = models.TutorialModel
     template_name = 'Tutorial/TutorialList.html'
     context_object_name = 'tutorials'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
         return models.TutorialModel.objects.filter(is_active=True).all()

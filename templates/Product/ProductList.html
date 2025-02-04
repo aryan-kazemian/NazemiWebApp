@@ -1,9 +1,13 @@
 {% extends 'Base/Base.html' %}
 {% load thumbnail %}
 {% load currency_filters %}
+{% block url %}
+	{% url 'ProductListPage' %}
+{% endblock %}
 {% block title %}
 	 لیست محصولات
 {% endblock %}
+
 {% block content %}
 	<main>
       <div class="w-[80%] mx-auto p-5 flex flex-col lg:flex-row gap-4">
@@ -64,8 +68,25 @@
             </div>
           </div>
 
-          <div id="productCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 rounded-lg p-4">
+<div class="flex justify-center items-center py-4">
+    <form action="{% url 'ProductListPage' %}" method="GET" class="relative w-full lg:w-1/3">
+        <input
+            id="productSearchInput"
+            type="search"
+            name="q1"
+            value="{{ request.GET.q1 }}"
+            placeholder="جستجوی محصول..."
+            class="w-full h-12 border rounded-full px-5 pr-12 outline-none bg-[#F6F6F6] text-sm text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-blue-400 focus:bg-white transition-all duration-300 ease-in-out cursor-text"
+        />
+        <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-blue-600 hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
+
+
           {% if products %}
+             <div id="productCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 rounded-lg p-4">
             {% for product in products %}
               <article data-aos="fade-left" class="productCard bg-lightGray rounded-xl flex flex-col gap-3 overflow-hidden border aos-init aos-animate">
               <!-- Card Image -->
@@ -96,10 +117,8 @@
               </div>
             </article>
             {% endfor %}
-          {% endif %}
-          </div>
-
-          <div dir="ltr" id="pagination" class="w-full border-t py-4 flex flex-row items-center justify-around gap-5 mt-5">
+              </div>
+                        <div dir="ltr" id="pagination" class="w-full border-t py-4 flex flex-row items-center justify-around gap-5 mt-5">
     <div class="flex flex-row gap-2">
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
@@ -127,7 +146,9 @@
         {% endif %}
     </div>
 </div>
-
+              {% else %}
+              محصول مورد نظر شما پیدا نشد!!!
+          {% endif %}
         </div>
 
       </div>
