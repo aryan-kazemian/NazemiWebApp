@@ -86,3 +86,18 @@
 
     </main>
 {% endblock %}
+
+{% block js %}
+	    <script>
+      function toggleInfo(section, btn) {
+        document.getElementById("description").classList.add("hidden");
+        document.getElementById("additional-info").classList.add("hidden");
+        document.getElementById(section).classList.toggle("hidden");
+
+        document.querySelectorAll(".border-b-2").forEach((button) => {
+          button.classList.remove("border-black");
+        });
+        btn.classList.add("border-black");
+      }
+    </script>
+{% endblock %}

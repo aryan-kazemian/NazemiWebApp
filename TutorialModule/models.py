@@ -4,10 +4,9 @@ from unidecode import unidecode
 
 # Create your models here.
 
-
 class TutorialModel(models.Model):
     title = models.CharField(max_length=200, verbose_name='سر تیتر', unique=True, null=True)
-    slug = models.SlugField(blank=True, null=True, editable=False)
+    slug = models.SlugField(blank=True, null=True, editable=False, allow_unicode=True)
     text = models.TextField(verbose_name='متن')
     image = models.ImageField(upload_to='Media/Tutorial-images', verbose_name='تصویر')
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
@@ -17,9 +16,8 @@ class TutorialModel(models.Model):
     minutes_to_read = models.IntegerField(default=5, verbose_name="چند دقیقه برای مطالعه نیاز است ؟")
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            title_for_slug = unidecode(self.title)
-            self.slug = slugify(title_for_slug)
+        category_for_slug = self.title
+        self.slug = slugify(category_for_slug, allow_unicode=True)
         super().save(*args, **kwargs)
 
     def __str__(self):

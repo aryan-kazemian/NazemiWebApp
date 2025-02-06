@@ -9,3 +9,4 @@ def three_digits_currency(value):
         return '{:,}'.format(int(value)) + ' تومان'
     except (ValueError, TypeError):
         return value  # Return unchanged if conversion fails
+

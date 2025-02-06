@@ -14,9 +14,8 @@ class ProductCategoryModel(models.Model):
         return self.category
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            category_for_slug = unidecode(self.category)
-            self.slug = slugify(category_for_slug)
+        category_for_slug = self.category
+        self.slug = slugify(category_for_slug, allow_unicode=True)
         super().save(*args, **kwargs)
 
     class Meta:
@@ -26,7 +25,7 @@ class ProductCategoryModel(models.Model):
 class ProductModel(models.Model):
     name = models.CharField(max_length=54, unique=True, verbose_name='نام محصول')
     cod = models.CharField(max_length=54, null=True, verbose_name='کد محصول')
-    slug = models.SlugField(blank=True, null=True, editable=False)
+    slug = models.SlugField(blank=True, null=True, editable=False, allow_unicode=True)
     country = models.CharField(max_length=54, null=True, verbose_name='کشور')
     price = models.CharField(max_length=30, verbose_name='قیمت محصول')
     price_integer = models.IntegerField(null=True, editable=False)
@@ -41,15 +40,11 @@ class ProductModel(models.Model):
     def __str__(self):
         return self.name
 
-
     def save(self, *args, **kwargs):
-        if not self.slug:
-            title_for_slug = unidecode(self.name)
-            self.slug = slugify(title_for_slug)
+        title_for_slug = self.name
+        self.slug = slugify(title_for_slug, allow_unicode=True)
         self.price_integer = int(self.price)
         super().save(*args, **kwargs)
-
-
 
     class Meta:
         verbose_name = 'محصول'

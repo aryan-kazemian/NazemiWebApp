@@ -4,7 +4,6 @@ from unidecode import unidecode
 
 # Create your models here.
 
-
 class CarModel(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='خودرو')
     slug = models.SlugField(blank=True, null=True, editable=False)
@@ -15,10 +14,9 @@ class CarModel(models.Model):
     def __str__(self):
         return self.name
 
-
     def save(self, *args, **kwargs):
-        title_for_slug = unidecode(self.name)
-        self.slug = slugify(title_for_slug)
+        category_for_slug = self.name
+        self.slug = slugify(category_for_slug, allow_unicode=True)
         super().save(*args, **kwargs)
 
     class Meta:

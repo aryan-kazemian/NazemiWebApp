@@ -7,57 +7,5 @@
     <script>
       AOS.init();
     </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SiteNavigationElement",
-        "name": ["خانه", "محصولات", "دسته بندی", "آموزش", "ارتباط با ما"],
-        "url": ["/home", "/products", "/categories", "/tutorials", "/contact"]
-      }
-    </script>
-    <script src="/Static/assets/scripts/homePage.js"></script>
-    <script>
-      function toggleInfo(section, btn) {
-        document.getElementById("description").classList.add("hidden");
-        document.getElementById("additional-info").classList.add("hidden");
-        document.getElementById(section).classList.toggle("hidden");
 
-        document.querySelectorAll(".border-b-2").forEach((button) => {
-          button.classList.remove("border-black");
-        });
-        btn.classList.add("border-black");
-      }
-    </script>
-    <script>
-  let slides = document.querySelectorAll(".slide");
-  let dots = document.querySelectorAll(".dot");
-  let currentIndex = 0;
 
-  function updateSlider(index) {
-    slides.forEach((slide, i) => {
-      slide.style.opacity = i === index ? "1" : "0";
-    });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("bg-red-500", i === index);
-    });
-  }
-
-  document.getElementById("prevSlide").addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider(currentIndex);
-  });
-
-  document.getElementById("nextSlide").addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider(currentIndex);
-  });
-
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      currentIndex = i;
-      updateSlider(currentIndex);
-    });
-  });
-
-  updateSlider(currentIndex);
-</script>
